@@ -1,0 +1,20 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+
+# Vercel
+.vercel/
+
+# Secrets - never commit API keys
+.env
+.env.*
+
+# Generated output and local backups
+images/
+*.onnx
+server_*.py
+
+# Claude Code personal settings
+.claude/settings.local.json
