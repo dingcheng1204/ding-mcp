@@ -26,6 +26,7 @@ from PIL import Image
 EXPECTED_TOOLS = {
     "add",
     "current_time",
+    "random_number",
     "search_images",
     "resize_image",
     "remove_background_as_png",
@@ -118,6 +119,14 @@ async def run(url: str, offline: bool) -> None:
             )
             r = await session.call_tool("current_time", {"timezone": "Mars/Base"})
             check("bad timezone -> isError", r.is_error)
+            r = await session.call_tool("random_number", {"low": 5, "high": 10})
+            check(
+                "random_number(5, 10) in range",
+                not r.is_error and 5 <= payload(r) <= 10,
+                str(payload(r)),
+            )
+            r = await session.call_tool("random_number", {"low": 10, "high": 5})
+            check("low > high -> isError", r.is_error)
 
             print("\n[validation]")
             r = await session.call_tool(

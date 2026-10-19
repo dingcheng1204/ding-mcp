@@ -377,6 +377,14 @@ def current_time(timezone: str = "Asia/Taipei") -> str:
     return datetime.now(tz).isoformat(timespec="seconds")
 
 
+@mcp.tool(annotations=ToolAnnotations(readOnlyHint=True, openWorldHint=False))
+def random_number(low: int = 1, high: int = 100) -> int:
+    """Return a random integer between low and high (both inclusive)."""
+    if low > high:
+        raise ToolError(f"low ({low}) must not be greater than high ({high})")
+    return random.randint(low, high)
+
+
 # ---------------------------------------------------------------------------
 # 7. Image tools
 # ---------------------------------------------------------------------------
